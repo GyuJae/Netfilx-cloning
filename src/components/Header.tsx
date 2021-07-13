@@ -12,6 +12,10 @@ const HeaderContainer = styled.header`
     rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
   width: 100%;
   height: 10%;
+  z-index: 1000;
+  padding: 20px;
+
+  margin-bottom: 20px;
 `;
 
 const Title = styled.h1`

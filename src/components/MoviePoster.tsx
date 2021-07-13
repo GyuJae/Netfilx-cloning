@@ -2,34 +2,39 @@
 
 import React from "react";
 import styled from "styled-components";
-
-interface IMoviePoster {
-  title: string;
-  id: number;
-  original_title: string;
-  overview: string;
-  poster_path?: string;
-  release_date: string;
-  vote_average: number;
-  vote_count: number;
-  popularity: number;
-  genre_ids: number[];
-  backdrop_path?: string;
-  adult: boolean;
-}
+import { IMovie } from "../types/Movies.interface";
 
 let IMGURL_ORIGIN = "https://image.tmdb.org/t/p/original";
 
-const MoviePosterContainer = styled.div``;
+const MoviePosterContainer = styled.div`
+  transition: transform 0.2s;
+  &:hover {
+    transform: scale(1.5);
+  }
+`;
 
 const Img = styled.img`
-  width: 150px;
-  height: 200px;
+  width: 190px;
+  height: 250px;
   border-radius: 4px;
   margin-right: 5px;
 `;
 
-const MoviePoster: React.FC<IMoviePoster> = ({
+const ImgNull = styled.div`
+  width: 190px;
+  height: 250px;
+  border-radius: 4px;
+  margin-right: 5px;
+  color: ${(props) => props.theme.redColor};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  border: 1px solid #999999;
+  background-color: ${(props) => props.theme.blackColor};
+`;
+
+const MoviePoster: React.FC<IMovie> = ({
   title,
   id,
   original_title,
@@ -45,8 +50,12 @@ const MoviePoster: React.FC<IMoviePoster> = ({
 }) => {
   const imgUrl = IMGURL_ORIGIN + poster_path;
   return (
-    <MoviePosterContainer>
-      <Img src={imgUrl} alt="poster" />
+    <MoviePosterContainer key={id}>
+      {poster_path ? (
+        <Img src={imgUrl} alt="poster" />
+      ) : (
+        <ImgNull>Photo ✖</ImgNull>
+      )}
     </MoviePosterContainer>
   );
 };
