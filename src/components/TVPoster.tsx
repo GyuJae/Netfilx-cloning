@@ -1,13 +1,11 @@
-// title id original_title overview poster_path release_date vote_average vote_count popularity genre_ids backdrop_path
-
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { IMovie } from "../types/Movies.interface";
+import { ITV } from "../types/TV.interface";
 
 let IMGURL_ORIGIN = "https://image.tmdb.org/t/p/original";
 
-const MoviePosterContainer = styled.div`
+const TVPosterContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,31 +36,31 @@ const ImgNull = styled.div`
   background-color: ${(props) => props.theme.blackColor};
 `;
 
-const MoviePoster: React.FC<IMovie> = ({
-  title,
+const TVPoster: React.FC<ITV> = ({
+  name,
   id,
-  original_title,
+  original_name,
   overview,
   poster_path,
   popularity,
+  genres,
   backdrop_path,
   adult,
-  genres,
   production_companies,
 }) => {
   const imgUrl = IMGURL_ORIGIN + poster_path;
 
   return (
-    <MoviePosterContainer key={id}>
-      <Link to={`/${id}`}>
+    <TVPosterContainer key={id}>
+      <Link to={`/tv/${id}`}>
         {poster_path ? (
           <Img src={imgUrl} alt="poster" />
         ) : (
           <ImgNull>Photo ✖</ImgNull>
         )}
       </Link>
-    </MoviePosterContainer>
+    </TVPosterContainer>
   );
 };
 
-export default MoviePoster;
+export default TVPoster;

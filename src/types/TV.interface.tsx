@@ -10,10 +10,10 @@ type production_company = {
   origin_country: string;
 };
 
-export interface IMovie {
-  title: string;
+export interface ITV {
+  name: string;
   id: number;
-  original_title: string;
+  original_name: string;
   overview: string;
   poster_path?: string;
   popularity: number;

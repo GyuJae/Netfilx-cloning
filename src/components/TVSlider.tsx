@@ -1,10 +1,10 @@
 import Slider from "react-slick";
 import styled from "styled-components";
-import { IMovie } from "../types/Movies.interface";
-import MoviePoster from "./MoviePoster";
+import { ITV } from "../types/TV.interface";
+import TVPoster from "./TVPoster";
 
 interface ISlider {
-  data: IMovie[];
+  data: ITV[];
 }
 
 const SliderContainer = styled.div`
@@ -35,7 +35,7 @@ const Arrow: React.FC = (props: any) => {
   );
 };
 
-const MovieSlider: React.FC<ISlider> = ({ data }) => {
+const TVSlider: React.FC<ISlider> = ({ data }) => {
   const settings = {
     dots: false,
     infinite: true,
@@ -70,19 +70,18 @@ const MovieSlider: React.FC<ISlider> = ({ data }) => {
     <SliderContainer>
       <Slider {...settings}>
         {data &&
-          data.map((movie) => (
-            <MoviePoster
-              key={movie.id}
-              title={movie.title}
-              id={movie.id}
-              original_title={movie.original_title}
-              overview={movie.overview}
-              poster_path={movie.poster_path}
-              popularity={movie.popularity}
-              backdrop_path={movie.backdrop_path}
-              adult={movie.adult}
-              genres={movie.genres}
-              production_companies={movie.production_companies}
+          data.map((tv) => (
+            <TVPoster
+              name={tv.name}
+              id={tv.id}
+              original_name={tv.original_name}
+              overview={tv.overview}
+              poster_path={tv.poster_path}
+              popularity={tv.popularity}
+              backdrop_path={tv.backdrop_path}
+              adult={tv.adult}
+              genres={tv.genres}
+              production_companies={tv.production_companies}
             />
           ))}
       </Slider>
@@ -90,4 +89,4 @@ const MovieSlider: React.FC<ISlider> = ({ data }) => {
   );
 };
 
-export default MovieSlider;
+export default TVSlider;

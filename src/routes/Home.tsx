@@ -66,12 +66,13 @@ const Home: React.FC = () => {
       {loading && <Loader />}
 
       {!loading && (
-        <>
+        <div>
           <Section>
             <Title title="Now Plays" />
             <MovieContainer>
               {nowPlayings && <MovieSlider data={nowPlayings} />}
             </MovieContainer>
+            ``
           </Section>
           <Section>
             <Title title="Populars" />
@@ -85,7 +86,7 @@ const Home: React.FC = () => {
               {upcomings && <MovieSlider data={upcomings} />}
             </MovieContainer>
           </Section>
-        </>
+        </div>
       )}
     </BigContainer>
   );

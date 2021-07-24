@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { tvApi } from "../api";
 import Loader from "../components/Loader";
-import MovieSlider from "../components/MovieSlider";
 import Title from "../components/Title";
-import { IMovie } from "../types/Movies.interface";
+import TVSlider from "../components/TVSlider";
+import { ITV } from "../types/TV.interface";
 
 const TvContainer = styled.div`
   margin-top: 20px;
@@ -23,9 +23,9 @@ const Section = styled.div`
 
 const TV = () => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [topRateds, setTopRateds] = useState<IMovie[]>([]);
-  const [populars, setPopular] = useState<IMovie[]>([]);
-  const [airingTodays, setAiringToday] = useState<IMovie[]>([]);
+  const [topRateds, setTopRateds] = useState<ITV[]>([]);
+  const [populars, setPopular] = useState<ITV[]>([]);
+  const [airingTodays, setAiringToday] = useState<ITV[]>([]);
 
   useEffect(() => {
     const topRadtedLoader = async () => {
@@ -70,19 +70,19 @@ const TV = () => {
           <Section>
             <Title title="Top Rated" />
             <TvContainer>
-              {topRateds && <MovieSlider data={topRateds} />}
+              {topRateds && <TVSlider data={topRateds} />}
             </TvContainer>
           </Section>
           <Section>
             <Title title="Popular" />
             <TvContainer>
-              {populars && <MovieSlider data={populars} />}
+              {populars && <TVSlider data={populars} />}
             </TvContainer>
           </Section>
           <Section>
             <Title title="Airing Today" />
             <TvContainer>
-              {airingTodays && <MovieSlider data={airingTodays} />}
+              {airingTodays && <TVSlider data={airingTodays} />}
             </TvContainer>
           </Section>
         </>

@@ -15,6 +15,7 @@ const GlobalStyle = createGlobalStyle`
         font-size:12px;
         background-color:#090909;
         color:#FFFFFF;
+        height:100%
     }
 `;
 
