@@ -73,16 +73,8 @@ const MovieSlider: React.FC<ISlider> = ({ data }) => {
           data.map((movie) => (
             <MoviePoster
               key={movie.id}
-              title={movie.title}
               id={movie.id}
-              original_title={movie.original_title}
-              overview={movie.overview}
               poster_path={movie.poster_path}
-              popularity={movie.popularity}
-              backdrop_path={movie.backdrop_path}
-              adult={movie.adult}
-              genres={movie.genres}
-              production_companies={movie.production_companies}
             />
           ))}
       </Slider>

@@ -38,18 +38,7 @@ const ImgNull = styled.div`
   background-color: ${(props) => props.theme.blackColor};
 `;
 
-const MoviePoster: React.FC<IMovie> = ({
-  title,
-  id,
-  original_title,
-  overview,
-  poster_path,
-  popularity,
-  backdrop_path,
-  adult,
-  genres,
-  production_companies,
-}) => {
+const MoviePoster: React.FC<IMovie> = ({ id, poster_path }) => {
   const imgUrl = IMGURL_ORIGIN + poster_path;
 
   return (

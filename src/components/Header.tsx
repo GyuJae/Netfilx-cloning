@@ -1,6 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { Link, withRouter } from "react-router-dom";
+import { Link, useHistory, withRouter } from "react-router-dom";
+import { ImSearch } from "react-icons/im";
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+
+interface ISearch {
+  term: string;
+}
 
 const HeaderContainer = styled.header`
   background-color: ${(props) => props.theme.blackColor};
@@ -39,21 +46,84 @@ const Item = styled.li<{ current: boolean }>`
 
 const SLink = styled(Link)``;
 
-const Header = withRouter(({ location: { pathname } }) => (
-  <HeaderContainer>
-    <Title>NetFilx</Title>
-    <List>
-      <Item current={pathname === "/"}>
-        <SLink to="/">Movies</SLink>
-      </Item>
-      <Item current={pathname === "/tv"}>
-        <SLink to="/tv">TV</SLink>
-      </Item>
-      <Item current={pathname === "/search"}>
-        <SLink to="/search">Search</SLink>
-      </Item>
-    </List>
-  </HeaderContainer>
-));
+const ImSearchContainer = styled.div`
+  font-weight: 700;
+  font-size: large;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+`;
+const IconContainer = styled.div<{ useSearch: boolean }>`
+  position: ${(props) => (props.useSearch ? "absolute" : "")};
+  left: 10px;
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
+
+const FormContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Form = styled.form``;
+
+const Input = styled.input<{ useSearch: boolean }>`
+  padding: 10px 30px;
+  padding-right: 2px;
+  outline: none;
+  border: 1px solid ${(props) => props.theme.whiteColor};
+  background-color: ${(props) => props.theme.darkBlackColor};
+  color: ${(props) => props.theme.whiteColor};
+`;
+
+const Header = withRouter(({ location: { pathname } }) => {
+  const history = useHistory();
+  const [useSearch, setUseSearch] = useState(false);
+  const SearchForm = () => {
+    const { register, handleSubmit, getValues } = useForm<ISearch>();
+
+    const onSubmit: SubmitHandler<ISearch> = async () => {
+      const { term } = getValues();
+
+      history.push(`/search?term=${term}`);
+    };
+    return (
+      <FormContainer>
+        <Form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+          <Input
+            useSearch={useSearch}
+            placeholder="Search movies or tvs..."
+            {...register("term")}
+          />
+        </Form>
+      </FormContainer>
+    );
+  };
+
+  return (
+    <HeaderContainer>
+      <Title>NetFilx</Title>
+      <List>
+        <Item current={pathname === "/search"}>
+          <ImSearchContainer>
+            <IconContainer useSearch={useSearch}>
+              <ImSearch onClick={() => setUseSearch(!useSearch)} />
+            </IconContainer>
+            {useSearch && <SearchForm />}
+          </ImSearchContainer>
+        </Item>
+        <Item current={pathname === "/"}>
+          <SLink to="/">Movies</SLink>
+        </Item>
+        <Item current={pathname === "/tv"}>
+          <SLink to="/tv">TV</SLink>
+        </Item>
+      </List>
+    </HeaderContainer>
+  );
+});
 
 export default Header;

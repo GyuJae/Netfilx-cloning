@@ -71,18 +71,7 @@ const TVSlider: React.FC<ISlider> = ({ data }) => {
       <Slider {...settings}>
         {data &&
           data.map((tv) => (
-            <TVPoster
-              name={tv.name}
-              id={tv.id}
-              original_name={tv.original_name}
-              overview={tv.overview}
-              poster_path={tv.poster_path}
-              popularity={tv.popularity}
-              backdrop_path={tv.backdrop_path}
-              adult={tv.adult}
-              genres={tv.genres}
-              production_companies={tv.production_companies}
-            />
+            <TVPoster id={tv.id} poster_path={tv.poster_path} />
           ))}
       </Slider>
     </SliderContainer>

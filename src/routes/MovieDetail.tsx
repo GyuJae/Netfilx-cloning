@@ -4,32 +4,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { moviesApi } from "../api";
 import Loader from "../components/Loader";
-
-type genre = {
-  id: number;
-  name: string;
-};
-
-type production_company = {
-  id: number;
-  logo_path?: string;
-  name: string;
-  origin_country: string;
-};
-
-interface IMovieDetail {
-  id: number;
-  adult: boolean;
-  backdrop_path?: string;
-  genres: genre[];
-  overview: string;
-  poster_path: string;
-  release_date?: string;
-  runtime?: string;
-  original_title: string;
-  production_companies: production_company[];
-  homepage?: string;
-}
+import { IMovieDetail } from "../types/Movies.interface";
 
 const MovieDetailContainer = styled.div`
   color: ${(props) => props.theme.whiteColor};

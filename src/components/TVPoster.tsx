@@ -36,18 +36,7 @@ const ImgNull = styled.div`
   background-color: ${(props) => props.theme.blackColor};
 `;
 
-const TVPoster: React.FC<ITV> = ({
-  name,
-  id,
-  original_name,
-  overview,
-  poster_path,
-  popularity,
-  genres,
-  backdrop_path,
-  adult,
-  production_companies,
-}) => {
+const TVPoster: React.FC<ITV> = ({ id, poster_path }) => {
   const imgUrl = IMGURL_ORIGIN + poster_path;
 
   return (
