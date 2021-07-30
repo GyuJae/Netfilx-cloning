@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { moviesApi } from "../api";
+import BigPosterSlider from "../components/BigPosterSlider";
 import Loader from "../components/Loader";
 import MovieSlider from "../components/MovieSlider";
 import Title from "../components/Title";
@@ -67,12 +68,12 @@ const Home: React.FC = () => {
 
       {!loading && (
         <div>
+          <BigPosterSlider movies={nowPlayings} />
           <Section>
             <Title title="Now Plays" />
             <MovieContainer>
               {nowPlayings && <MovieSlider data={nowPlayings} />}
             </MovieContainer>
-            ``
           </Section>
           <Section>
             <Title title="Populars" />

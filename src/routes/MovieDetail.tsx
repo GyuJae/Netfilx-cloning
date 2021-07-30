@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { moviesApi } from "../api";
+import { IMGURL_ORIGIN } from "../common.constants";
 import Loader from "../components/Loader";
 import { IMovieDetail } from "../types/Movies.interface";
 
@@ -131,7 +132,6 @@ const Logo = styled.img`
 const MovieDetail = () => {
   const [loading, setLoading] = useState(true);
   const [movie, setMovie] = useState<IMovieDetail | null>(null);
-  const IMGURL_ORIGIN = "https://image.tmdb.org/t/p/original";
   const { id } = useParams<{ id: string }>();
   useEffect(() => {
     const getMovieDetail = async () => {

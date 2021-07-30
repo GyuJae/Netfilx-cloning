@@ -3,9 +3,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { IMGURL_ORIGIN } from "../common.constants";
 import { IMovie } from "../types/Movies.interface";
-
-let IMGURL_ORIGIN = "https://image.tmdb.org/t/p/original";
 
 const MoviePosterContainer = styled.div`
   display: flex;
