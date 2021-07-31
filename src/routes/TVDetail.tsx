@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { tvApi } from "../api";
+import {
+  IMGURL_ORIGIN,
+  VIMEO_VIDEO_URL,
+  YOUTUBE_VIDEO_URL,
+} from "../common.constants";
 import Loader from "../components/Loader";
+import VideoUrl from "../components/VideoUrl";
+import { IVideo } from "../types/Movies.interface";
 import { ITvDetail } from "../types/TV.interface";
 
 type paramsId = {
@@ -131,16 +138,24 @@ const Logo = styled.img`
   }
 `;
 
+const VidoesTitle = styled.h1`
+  font-size: 17px;
+  font-weight: 700;
+  margin: 5px 0px;
+`;
+
+const VideosContainer = styled.div``;
+
 const TVDetail = () => {
   const [loading, setLoading] = useState(true);
   const { id } = useParams<paramsId>();
   const [TV, setTV] = useState<ITvDetail | null>(null);
-  const IMGURL_ORIGIN = "https://image.tmdb.org/t/p/original";
+  const [videos, setVideos] = useState<IVideo[]>(TV?.videos.results);
   useEffect(() => {
     const getTvDeatil = async () => {
       const { data } = await tvApi.showDetail(id);
-      setTV(data);
-      console.log(data);
+      await setTV(data);
+      await setVideos(data?.videos.results);
       setLoading(false);
     };
     getTvDeatil();
@@ -181,6 +196,20 @@ const TVDetail = () => {
                 )}
               </SubContainer>
               <Overview>{TV?.overview}</Overview>
+              {videos && <VidoesTitle>Video List</VidoesTitle>}
+              <VideosContainer>
+                {videos &&
+                  videos.map((video) => (
+                    <VideoUrl
+                      {...video}
+                      url={
+                        video.site === "YouTube"
+                          ? YOUTUBE_VIDEO_URL + video.key
+                          : VIMEO_VIDEO_URL + video.key
+                      }
+                    />
+                  ))}
+              </VideosContainer>
               <LogoContainer>
                 {TV?.production_companies.map((company) =>
                   company.logo_path ? (

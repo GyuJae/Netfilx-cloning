@@ -105,7 +105,9 @@ const Header = withRouter(({ location: { pathname } }) => {
 
   return (
     <HeaderContainer>
-      <Title>NetFilx</Title>
+      <Link to={"/"}>
+        <Title>NetFilx</Title>
+      </Link>
       <List>
         <Item current={pathname === "/search"}>
           <ImSearchContainer>

@@ -35,6 +35,7 @@ export interface ITvDetail {
   name: string;
   production_companies: production_company[];
   homepage?: string;
+  videos?: any;
 }
 
 export interface ISearchTV {

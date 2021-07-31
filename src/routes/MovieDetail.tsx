@@ -3,9 +3,14 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { moviesApi } from "../api";
-import { IMGURL_ORIGIN } from "../common.constants";
+import {
+  IMGURL_ORIGIN,
+  VIMEO_VIDEO_URL,
+  YOUTUBE_VIDEO_URL,
+} from "../common.constants";
 import Loader from "../components/Loader";
-import { IMovieDetail } from "../types/Movies.interface";
+import VideoUrl from "../components/VideoUrl";
+import { IMovieDetail, IVideo } from "../types/Movies.interface";
 
 const MovieDetailContainer = styled.div`
   color: ${(props) => props.theme.whiteColor};
@@ -129,20 +134,29 @@ const Logo = styled.img`
   }
 `;
 
+const VidoesTitle = styled.h1`
+  font-size: 17px;
+  font-weight: 700;
+  margin: 5px 0px;
+`;
+
+const VideosContainer = styled.div``;
+
 const MovieDetail = () => {
   const [loading, setLoading] = useState(true);
   const [movie, setMovie] = useState<IMovieDetail | null>(null);
+  const [videos, setVideos] = useState<IVideo[]>(movie?.videos.results);
   const { id } = useParams<{ id: string }>();
   useEffect(() => {
     const getMovieDetail = async () => {
       const { data } = await moviesApi.movieDetail(id);
       await setMovie(data);
+      await setVideos(data?.videos.results);
       setLoading(false);
-      console.log(data);
     };
     getMovieDetail();
-  }, [id, movie]);
-
+  }, [id, movie, videos]);
+  console.log(videos);
   return (
     <MovieDetailContainer key={movie?.id}>
       {loading && !movie ? (
@@ -178,6 +192,20 @@ const MovieDetail = () => {
                 )}
               </SubContainer>
               <Overview>{movie?.overview}</Overview>
+              {videos && <VidoesTitle>Video List</VidoesTitle>}
+              <VideosContainer>
+                {videos &&
+                  videos.map((video) => (
+                    <VideoUrl
+                      {...video}
+                      url={
+                        video.site === "YouTube"
+                          ? YOUTUBE_VIDEO_URL + video.key
+                          : VIMEO_VIDEO_URL + video.key
+                      }
+                    />
+                  ))}
+              </VideosContainer>
               <LogoContainer>
                 {movie?.production_companies.map((company) =>
                   company.logo_path ? (
