@@ -156,7 +156,6 @@ const MovieDetail = () => {
     };
     getMovieDetail();
   }, [id, movie, videos]);
-  console.log(videos);
   return (
     <MovieDetailContainer key={movie?.id}>
       {loading && !movie ? (
@@ -207,9 +206,12 @@ const MovieDetail = () => {
                   ))}
               </VideosContainer>
               <LogoContainer>
-                {movie?.production_companies.map((company) =>
+                {movie?.production_companies.map((company, index) =>
                   company.logo_path ? (
-                    <Logo src={`${IMGURL_ORIGIN}${company.logo_path}`} />
+                    <Logo
+                      src={`${IMGURL_ORIGIN}${company.logo_path}`}
+                      key={index}
+                    />
                   ) : null
                 )}
               </LogoContainer>

@@ -70,8 +70,8 @@ const TVSlider: React.FC<ISlider> = ({ data }) => {
     <SliderContainer>
       <Slider {...settings}>
         {data &&
-          data.map((tv) => (
-            <TVPoster id={tv.id} poster_path={tv.poster_path} />
+          data.map((tv, index) => (
+            <TVPoster id={tv.id} poster_path={tv.poster_path} key={index} />
           ))}
       </Slider>
     </SliderContainer>
